@@ -16,7 +16,18 @@
                 <a href="{% url 'posts:inicio' %}">Inicio</a>
                 <a href="{% url 'posts:lista_posts' %}">Artículos</a>
                 <a href="{% url 'posts:proyectos' %}">Proyectos</a>
-                <a href="{% url 'posts:acerca' %}">Perfil</a>
+                <a href="{% url 'posts:acerca' %}">Acerca de mí</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:perfil' %}">Mi perfil</a>
+                    <a href="{% url 'posts:crear_post' %}">Crear artículo</a>
+                    <form method="post" action="{% url 'accounts:logout' %}" class="form-salir">
+                        {% csrf_token %}
+                        <button type="submit" class="enlace-boton">Cerrar sesión</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
+                    <a href="{% url 'accounts:registro' %}">Registrarse</a>
+                {% endif %}
             </div>
         </nav>
     </header>
@@ -33,3 +44,4 @@
     </footer>
 </body>
 </html>
+

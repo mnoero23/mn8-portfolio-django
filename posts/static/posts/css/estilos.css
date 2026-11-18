@@ -76,3 +76,14 @@ h1 { max-width:900px; margin:0; font-size:clamp(2.65rem,6.7vw,5.25rem); letter-s
 .pie p { margin:0; }
 @media (max-width:820px) { .hero-profesional,.grilla,.panel-acerca{grid-template-columns:1fr}.ficha-profesional{max-width:520px}.publicacion{grid-template-columns:160px 1fr} }
 @media (max-width:640px) { .contenedor{width:min(100% - 28px,1120px)}.navegacion{align-items:flex-start;flex-direction:column;padding-block:14px}.enlaces{width:100%;overflow-x:auto}.enlaces a{white-space:nowrap}.hero,.pagina-interna{padding-top:52px}.cabecera-pagina{align-items:flex-start;flex-direction:column}.publicacion{display:block}.miniatura-post{height:210px;margin-bottom:20px}.seccion-proyectos{padding-inline:20px}.pie-contenido{flex-direction:column} }
+
+.form-salir { display:inline; margin:0; }
+.enlace-boton { border:0; padding:0; background:transparent; color:inherit; font:inherit; cursor:pointer; }
+.enlace-boton:hover { color:var(--acento); }
+.panel-autenticacion { max-width:720px; margin:2rem auto; padding:2rem; border-radius:18px; background:#fff; box-shadow:var(--sombra); }
+.panel-autenticacion fieldset { margin:1.5rem 0; padding:1rem; border:1px solid var(--borde); border-radius:12px; }
+.perfil-usuario { display:grid; grid-template-columns:minmax(150px,220px) 1fr; gap:2rem; align-items:start; padding:2rem; border-radius:18px; background:#fff; box-shadow:var(--sombra); }
+.perfil-avatar img,.avatar-placeholder { width:180px; height:180px; border-radius:50%; object-fit:cover; }
+.avatar-placeholder { display:grid; place-items:center; background:var(--texto); color:#fff; font-size:4rem; font-weight:700; }
+@media (max-width:700px) { .perfil-usuario{grid-template-columns:1fr} }
+

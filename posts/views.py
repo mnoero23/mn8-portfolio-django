@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm
@@ -49,6 +50,7 @@ def detalle_post(request, pk):
     return render(request, "posts/detalle_post.html", {"post": post})
 
 
+@login_required
 def crear_post(request):
     """Crea una publicación procesando datos y archivos."""
     form = PostForm(request.POST or None, request.FILES or None)
@@ -59,6 +61,7 @@ def crear_post(request):
     return render(request, "posts/post_form.html", {"form": form, "modo": "Crear"})
 
 
+@login_required
 def editar_post(request, pk):
     """Actualiza una publicación existente y permite reemplazar su imagen."""
     post = get_object_or_404(Post, pk=pk)
@@ -74,6 +77,7 @@ def editar_post(request, pk):
     )
 
 
+@login_required
 def eliminar_post(request, pk):
     """Elimina una publicación únicamente después de una confirmación POST."""
     post = get_object_or_404(Post, pk=pk)
@@ -92,3 +96,4 @@ def proyectos(request):
 def acerca(request):
     """Presenta al autor y el propósito del proyecto."""
     return render(request, "posts/acerca.html")
+
