@@ -1,0 +1,23 @@
+{% extends 'posts/base.html' %}
+{% block title %}Mi perfil · MN8{% endblock %}
+{% block content %}
+<section class="perfil-usuario">
+    <div class="perfil-avatar">
+        {% if perfil.avatar %}
+            <img src="{{ perfil.avatar.url }}" alt="Avatar de {{ request.user.username }}">
+        {% else %}
+            <div class="avatar-placeholder" aria-label="Usuario sin avatar">{{ request.user.username|first|upper }}</div>
+        {% endif %}
+    </div>
+    <div>
+        <p class="eyebrow">Perfil MN8</p>
+        <h1>{{ request.user.get_full_name|default:request.user.username }}</h1>
+        <p><strong>Usuario:</strong> {{ request.user.username }}</p>
+        <p><strong>Email:</strong> {{ request.user.email|default:'Sin informar' }}</p>
+        <p>{{ perfil.biografia|default:'Todavía no agregaste una biografía.' }}</p>
+        {% if perfil.link_web %}<p><a href="{{ perfil.link_web }}" rel="noopener noreferrer">Visitar sitio web</a></p>{% endif %}
+        <a class="boton" href="{% url 'accounts:editar_perfil' %}">Editar perfil</a>
+    </div>
+</section>
+{% endblock %}
+

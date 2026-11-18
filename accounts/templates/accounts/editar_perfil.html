@@ -1,0 +1,22 @@
+{% extends 'posts/base.html' %}
+{% block title %}Editar perfil · MN8{% endblock %}
+{% block content %}
+<section class="panel-autenticacion">
+    <p class="eyebrow">Perfil MN8</p>
+    <h1>Editar mi perfil</h1>
+    <form method="post" enctype="multipart/form-data" class="formulario">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Datos personales</legend>
+            {{ usuario_form.as_p }}
+        </fieldset>
+        <fieldset>
+            <legend>Presentación profesional</legend>
+            {{ perfil_form.as_p }}
+        </fieldset>
+        <button type="submit" class="boton">Guardar cambios</button>
+        <a class="boton boton-secundario" href="{% url 'accounts:perfil' %}">Cancelar</a>
+    </form>
+</section>
+{% endblock %}
+
