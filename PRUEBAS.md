@@ -1,4 +1,4 @@
-# Pruebas · Sitio profesional con Django
+# Pruebas · MN8 Portfolio Django
 
 ## Comandos obligatorios
 
@@ -10,40 +10,42 @@ python manage.py test -v 2
 
 ## Cobertura automatizada
 
-La suite contiene **20 pruebas**. Las 17 pruebas de la Pre-entrega 10 ya fueron aprobadas por Coderhouse y se agregaron 3 pruebas específicas para la recomendación de la profesora:
+La suite contiene **32 pruebas**: conserva las 20 verificaciones anteriores y suma 12 casos para la Pre-entrega 11.
 
-- Crear un artículo redirige al detalle y muestra el mensaje de éxito.
-- Editar un artículo redirige al detalle y muestra el mensaje de éxito.
-- Eliminar un artículo redirige al listado y muestra el mensaje de éxito.
+Se valida:
 
-También se valida:
+- Modelo `Perfil` relacionado con `User` mediante `OneToOneField`.
+- Formulario personalizado basado en `UserCreationForm`.
+- Registro con creación explícita del perfil, sin signals.
+- Login con redirección al perfil.
+- Logout mediante POST con redirección al listado.
+- Protección de la página de perfil.
+- Visualización de usuario, email y biografía.
+- Edición de datos, biografía, sitio web y avatar.
+- Procesamiento del avatar mediante `request.FILES`.
+- Protección de crear, editar y borrar posts.
+- Acceso público al listado y al detalle de posts.
+- Navegación diferenciada para usuarios anónimos y autenticados.
+- Regresión completa del CRUD de posts e imágenes.
 
-- Registro y configuración de la app `posts`.
-- Portada, perfil, navegación y archivos static.
-- Modelo `Post` y listado de publicaciones.
-- `PostForm` como `ModelForm` con campo `imagen`.
-- Creación de un post con imagen.
-- Carga mediante `multipart/form-data`.
-- Edición del registro existente.
-- Confirmación previa y eliminación únicamente mediante `POST`.
-- Conservación de las pruebas de pre-entregas anteriores.
+## Resultado verificado
 
-## Resultado esperado
-
-- `System check identified no issues`.
+- `System check identified no issues (0 silenced)`.
 - `No changes detected`.
-- `Ran 20 tests`.
+- `Ran 32 tests`.
 - `OK`.
 
 ## Prueba manual de aceptación
 
 1. Ejecutar `python manage.py migrate` y `python manage.py runserver`.
-2. Revisar la portada profesional, `/proyectos/` y `/acerca/`.
-3. Abrir `/posts/crear/` y crear un artículo publicado con imagen.
-4. Confirmar que el sitio redirige al detalle y muestra el mensaje de creación.
-5. Confirmar que el artículo aparece en `/posts/` y que la imagen se ve correctamente.
-6. Editar el artículo, cambiar la imagen y comprobar el mensaje de actualización.
-7. Crear otro artículo sin imagen y comprobar que la página no se rompe.
-8. Abrir la eliminación y verificar que primero aparezca la confirmación.
-9. Confirmar el borrado y comprobar la redirección al listado y el mensaje final.
-10. Revisar la versión móvil desde las herramientas del navegador.
+2. Visitar `/cuentas/registro/` y crear un usuario.
+3. Iniciar sesión en `/cuentas/login/`.
+4. Confirmar que la navegación muestre **Mi perfil**, **Crear artículo** y **Cerrar sesión**.
+5. Abrir el perfil y editar nombre, email, biografía, sitio web y avatar.
+6. Confirmar que el avatar se vea y que el perfil muestre la información guardada.
+7. Crear, editar y eliminar un artículo estando autenticado.
+8. Cerrar sesión.
+9. Confirmar que listado y detalle sigan siendo públicos.
+10. Escribir directamente las URLs de crear, editar y eliminar y verificar la redirección al login.
+11. Revisar la navegación y el perfil en vista móvil.
+

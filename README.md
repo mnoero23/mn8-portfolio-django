@@ -16,6 +16,11 @@ El proyecto nació como blog académico del curso de Python de Coderhouse y evol
 - Formularios basados en `ModelForm`.
 - Diseño responsive con templates heredados y CSS propio.
 - Panel de administración.
+- Registro, login y logout con autenticación nativa de Django.
+- Perfil de usuario con biografía, sitio web y avatar.
+- Edición de datos personales y perfil.
+- Navegación diferenciada para visitantes y usuarios autenticados.
+- Creación, edición y eliminación de artículos protegidas por login.
 - Pruebas automatizadas.
 
 ## Requisitos
@@ -82,6 +87,23 @@ El resultado esperado de `check` es `System check identified no issues`. La comp
 | `/proyectos/` | Portfolio de proyectos |
 | `/acerca/` | Perfil profesional |
 | `/admin/` | Administración de Django |
+| `/cuentas/registro/` | Crear una cuenta |
+| `/cuentas/login/` | Iniciar sesión |
+| `/cuentas/logout/` | Cerrar sesión mediante POST |
+| `/cuentas/perfil/` | Ver el perfil autenticado |
+| `/cuentas/perfil/editar/` | Editar datos, biografía y avatar |
+
+## Usuarios, autenticación y perfiles
+
+- El registro usa un formulario personalizado basado en `UserCreationForm`.
+- Al guardar un usuario se crea explícitamente un `Perfil`; no se utilizan signals.
+- `Perfil` se relaciona con `User` mediante `OneToOneField`.
+- El avatar se guarda en `media/perfiles/` y se procesa mediante `request.FILES`.
+- Login y logout utilizan las vistas nativas de Django.
+- El perfil y su edición requieren autenticación.
+- Crear, editar y eliminar posts requieren autenticación mediante `@login_required`.
+- El listado y el detalle de artículos continúan disponibles públicamente.
+- La navegación muestra registro/login a visitantes y perfil/crear/logout a usuarios autenticados.
 
 ## Flujo del CRUD
 
@@ -116,6 +138,19 @@ Para probar el flujo:
 blog_project/
 ├── settings.py
 └── urls.py
+accounts/
+├── migrations/0001_initial.py
+├── templates/accounts/
+│   ├── login.html
+│   ├── registro.html
+│   ├── perfil.html
+│   └── editar_perfil.html
+├── admin.py
+├── forms.py
+├── models.py
+├── urls.py
+├── views.py
+└── tests.py
 posts/
 ├── migrations/
 │   ├── 0001_initial.py
@@ -142,3 +177,4 @@ posts/
 Los próximos avances se organizarán en commits pequeños y descriptivos, separados por responsabilidad: modelo y migraciones, formularios, vistas, templates, pruebas y documentación.
 
 `venv/`, `db.sqlite3`, `media/` y variables privadas están excluidos mediante `.gitignore`.
+
