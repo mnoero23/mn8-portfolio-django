@@ -5,6 +5,7 @@ import tempfile
 from django.apps import apps
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import User
 from django.contrib.staticfiles import finders
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
@@ -124,6 +125,11 @@ class PostCrudTest(TestCase):
         shutil.rmtree(MEDIA_TEMPORAL, ignore_errors=True)
 
     def setUp(self):
+        self.usuario = User.objects.create_user(
+            username="matias",
+            password="ClaveSegura123!",
+        )
+        self.client.force_login(self.usuario)
         self.post = Post.objects.create(
             titulo="Automatización con Python",
             contenido="Un caso concreto de mejora de procesos.",
@@ -229,3 +235,4 @@ class PostCrudTest(TestCase):
 
         self.assertContains(respuesta, "La publicación se eliminó correctamente.")
         self.assertEqual(respuesta.resolver_match.url_name, "lista_posts")
+

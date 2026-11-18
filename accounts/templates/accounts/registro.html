@@ -1,0 +1,16 @@
+{% extends 'posts/base.html' %}
+{% block title %}Crear cuenta · MN8{% endblock %}
+{% block content %}
+<section class="panel-autenticacion">
+    <p class="eyebrow">Comunidad MN8</p>
+    <h1>Crear una cuenta</h1>
+    <p>Registrate para contar con un perfil propio y acceder a las funciones protegidas.</p>
+    <form method="post" class="formulario">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="boton">Registrarme</button>
+    </form>
+    <p>¿Ya tenés una cuenta? <a href="{% url 'accounts:login' %}">Iniciá sesión</a>.</p>
+</section>
+{% endblock %}
+
