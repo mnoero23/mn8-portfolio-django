@@ -57,6 +57,22 @@ class SitioWebTest(TestCase):
         respuesta = self.client.get(reverse("posts:inicio"))
         self.assertContains(respuesta, "/static/posts/css/estilos.css")
 
+    def test_portada_presenta_propuesta_y_proyectos_mn8(self):
+        respuesta = self.client.get(reverse("posts:inicio"))
+        self.assertContains(respuesta, "Negocio primero. Tecnología con propósito.")
+        for proyecto in ("ALQIVO", "Faro Finanzas", "MN8 Portfolio"):
+            with self.subTest(proyecto=proyecto):
+                self.assertContains(respuesta, proyecto)
+
+    def test_portfolio_explica_desafio_respuesta_y_tecnologias(self):
+        respuesta = self.client.get(reverse("posts:proyectos"))
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertContains(respuesta, "El desafío", count=3)
+        self.assertContains(respuesta, "La respuesta", count=3)
+        self.assertContains(respuesta, "Python")
+        self.assertContains(respuesta, "Supabase")
+        self.assertContains(respuesta, "Explorar el código")
+
 
 class PostModelTest(TestCase):
     """Comprueba el modelo y el listado dinámico de la Pre-entrega 9."""
