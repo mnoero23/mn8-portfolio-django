@@ -55,7 +55,9 @@ def crear_post(request):
     """Crea una publicación procesando datos y archivos."""
     form = PostForm(request.POST or None, request.FILES or None)
     if request.method == "POST" and form.is_valid():
-        post = form.save()
+        post = form.save(commit=False)
+        post.autor = request.user
+        post.save()
         messages.success(request, "La publicación se creó correctamente.")
         return redirect("posts:detalle_post", pk=post.pk)
     return render(request, "posts/post_form.html", {"form": form, "modo": "Crear"})
@@ -64,7 +66,7 @@ def crear_post(request):
 @login_required
 def editar_post(request, pk):
     """Actualiza una publicación existente y permite reemplazar su imagen."""
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, autor=request.user)
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
     if request.method == "POST" and form.is_valid():
         post = form.save()
@@ -80,7 +82,7 @@ def editar_post(request, pk):
 @login_required
 def eliminar_post(request, pk):
     """Elimina una publicación únicamente después de una confirmación POST."""
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, autor=request.user)
     if request.method == "POST":
         post.delete()
         messages.success(request, "La publicación se eliminó correctamente.")
@@ -96,4 +98,3 @@ def proyectos(request):
 def acerca(request):
     """Presenta al autor y el propósito del proyecto."""
     return render(request, "posts/acerca.html")
-

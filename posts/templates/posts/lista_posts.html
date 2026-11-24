@@ -11,7 +11,7 @@
         {% for post in posts %}
         <article class="publicacion">
             {% if post.imagen %}<img class="miniatura-post" src="{{ post.imagen.url }}" alt="Imagen de {{ post.titulo }}">{% endif %}
-            <p class="meta">{{ post.autor }} · {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
+            <p class="meta">{{ post.nombre_autor }} · {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
             <h2>{{ post.titulo }}</h2>
             <div class="contenido-post">{{ post.contenido|truncatewords:35 }}</div>
             <a class="enlace-texto" href="{% url 'posts:detalle_post' post.pk %}">Leer artículo →</a>
