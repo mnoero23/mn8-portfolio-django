@@ -73,11 +73,18 @@ class SitioWebTest(TestCase):
         self.assertContains(respuesta, "Supabase")
         self.assertContains(respuesta, "Explorar el código")
 
+    def test_migracion_incorpora_contenido_editorial_reproducible(self):
+        titulos = set(Post.objects.filter(autor_legacy="Matías Noero").values_list("titulo", flat=True))
+        self.assertIn("De la planilla al producto: por qué construí FARO", titulos)
+        self.assertIn("ALQIVO: diseñar una operación de alquileres con trazabilidad", titulos)
+        self.assertIn("Aprender Django construyendo un proyecto real", titulos)
+
 
 class PostModelTest(TestCase):
     """Comprueba el modelo y el listado dinámico de la Pre-entrega 9."""
 
     def setUp(self):
+        Post.objects.all().delete()
         self.usuario = User.objects.create_user(
             username="matias-modelo",
             password="ClaveSegura123!",
