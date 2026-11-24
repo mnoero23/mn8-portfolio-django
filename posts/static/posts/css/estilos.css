@@ -79,6 +79,8 @@ h1 { max-width:900px; margin:0; font-size:clamp(2.65rem,6.7vw,5.25rem); letter-s
 
 .form-salir { display:flex; margin:0; }
 .enlace-boton { border:0; background:transparent; font:inherit; cursor:pointer; }
+.sesion-salir { margin-left:3px; border:1px solid var(--borde); color:var(--acento-oscuro); background:var(--superficie); }
+.sesion-salir::before { content:"↗"; display:inline-block; margin-right:7px; font-size:.85em; transform:rotate(45deg); }
 .acceso-pagina { min-height:calc(100vh - 150px); display:grid; grid-template-columns:minmax(0,1.05fr) minmax(380px,.75fr); gap:clamp(40px,8vw,110px); align-items:center; padding:clamp(55px,8vw,100px) 0; }
 .acceso-presentacion h1 { max-width:660px; font-size:clamp(3.2rem,7vw,5.7rem); }
 .acceso-presentacion .introduccion { max-width:620px; }

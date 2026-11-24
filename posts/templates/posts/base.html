@@ -22,7 +22,7 @@
                     <a href="{% url 'posts:crear_post' %}">Crear artículo</a>
                     <form method="post" action="{% url 'accounts:logout' %}" class="form-salir">
                         {% csrf_token %}
-                        <button type="submit" class="enlace-boton">Cerrar sesión</button>
+                        <button type="submit" class="enlace-boton sesion-salir" title="Cerrar sesión" aria-label="Cerrar sesión">Salir</button>
                     </form>
                 {% else %}
                     <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
