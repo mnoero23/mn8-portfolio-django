@@ -40,7 +40,7 @@ class AutenticacionYPerfilTest(TestCase):
         self.post = Post.objects.create(
             titulo="Artículo público",
             contenido="Contenido visible para visitantes.",
-            autor="Matías Noero",
+            autor=self.usuario,
             estado=Post.PUBLICADO,
         )
 

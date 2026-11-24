@@ -61,11 +61,18 @@ class SitioWebTest(TestCase):
 class PostModelTest(TestCase):
     """Comprueba el modelo y el listado dinámico de la Pre-entrega 9."""
 
+    def setUp(self):
+        self.usuario = User.objects.create_user(
+            username="matias-modelo",
+            password="ClaveSegura123!",
+            first_name="Matías",
+        )
+
     def test_post_tiene_valores_y_representacion_esperados(self):
         post = Post.objects.create(
             titulo="Mi primer post",
             contenido="Contenido de prueba",
-            autor="Matías",
+            autor=self.usuario,
         )
         self.assertEqual(post.estado, Post.BORRADOR)
         self.assertEqual(str(post), "Mi primer post")
@@ -74,13 +81,13 @@ class PostModelTest(TestCase):
         publicado = Post.objects.create(
             titulo="Post visible",
             contenido="Se debe mostrar",
-            autor="Matías",
+            autor=self.usuario,
             estado=Post.PUBLICADO,
         )
         borrador = Post.objects.create(
             titulo="Post oculto",
             contenido="No se debe mostrar",
-            autor="Matías",
+            autor=self.usuario,
         )
 
         respuesta = self.client.get(reverse("posts:lista_posts"))
@@ -94,13 +101,13 @@ class PostModelTest(TestCase):
         antiguo = Post.objects.create(
             titulo="Post antiguo",
             contenido="Primero creado",
-            autor="Matías",
+            autor=self.usuario,
             estado=Post.PUBLICADO,
         )
         reciente = Post.objects.create(
             titulo="Post reciente",
             contenido="Último creado",
-            autor="Matías",
+            autor=self.usuario,
             estado=Post.PUBLICADO,
         )
 
@@ -133,7 +140,7 @@ class PostCrudTest(TestCase):
         self.post = Post.objects.create(
             titulo="Automatización con Python",
             contenido="Un caso concreto de mejora de procesos.",
-            autor="Matías Noero",
+            autor=self.usuario,
             estado=Post.PUBLICADO,
         )
 
@@ -147,7 +154,7 @@ class PostCrudTest(TestCase):
         respuesta = self.client.get(reverse("posts:detalle_post", args=[self.post.pk]))
         self.assertEqual(respuesta.status_code, 200)
         self.assertContains(respuesta, self.post.titulo)
-        self.assertContains(respuesta, self.post.autor)
+        self.assertContains(respuesta, self.post.nombre_autor)
 
     def test_crear_post_con_imagen(self):
         png = base64.b64decode(
@@ -159,7 +166,6 @@ class PostCrudTest(TestCase):
             {
                 "titulo": "Proyecto con Django",
                 "contenido": "Desarrollo completo.",
-                "autor": "Matías Noero",
                 "estado": Post.PUBLICADO,
                 "imagen": imagen,
             },
@@ -174,7 +180,6 @@ class PostCrudTest(TestCase):
             {
                 "titulo": "Automatización mejorada",
                 "contenido": self.post.contenido,
-                "autor": self.post.autor,
                 "estado": Post.PUBLICADO,
             },
         )
@@ -203,7 +208,6 @@ class PostCrudTest(TestCase):
             {
                 "titulo": "Artículo nuevo",
                 "contenido": "Contenido del artículo.",
-                "autor": "Matías Noero",
                 "estado": Post.PUBLICADO,
             },
             follow=True,
@@ -218,7 +222,6 @@ class PostCrudTest(TestCase):
             {
                 "titulo": "Artículo actualizado",
                 "contenido": self.post.contenido,
-                "autor": self.post.autor,
                 "estado": Post.PUBLICADO,
             },
             follow=True,
@@ -236,3 +239,29 @@ class PostCrudTest(TestCase):
         self.assertContains(respuesta, "La publicación se eliminó correctamente.")
         self.assertEqual(respuesta.resolver_match.url_name, "lista_posts")
 
+    def test_crear_asigna_el_usuario_autenticado_como_autor(self):
+        self.client.post(
+            reverse("posts:crear_post"),
+            {
+                "titulo": "Autoría verificable",
+                "contenido": "El usuario se asigna desde la sesión.",
+                "estado": Post.PUBLICADO,
+            },
+        )
+
+        creado = Post.objects.get(titulo="Autoría verificable")
+        self.assertEqual(creado.autor, self.usuario)
+
+    def test_otro_usuario_no_puede_editar_ni_eliminar(self):
+        intruso = User.objects.create_user(
+            username="otro-usuario",
+            password="ClaveSegura456!",
+        )
+        self.client.force_login(intruso)
+
+        for nombre_url in ("posts:editar_post", "posts:eliminar_post"):
+            with self.subTest(nombre_url=nombre_url):
+                respuesta = self.client.get(reverse(nombre_url, args=[self.post.pk]))
+                self.assertEqual(respuesta.status_code, 404)
+
+        self.assertTrue(Post.objects.filter(pk=self.post.pk).exists())
