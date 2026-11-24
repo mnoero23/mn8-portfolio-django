@@ -18,6 +18,7 @@ media/
 # Variables privadas
 .env
 .env.*
+!.env.example
 
 # Editores y sistema operativo
 .vscode/
