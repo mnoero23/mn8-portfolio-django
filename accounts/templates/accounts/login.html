@@ -1,17 +1,37 @@
 {% extends 'posts/base.html' %}
 {% block title %}Iniciar sesión · MN8{% endblock %}
 {% block content %}
-<section class="panel-autenticacion">
-    <p class="eyebrow">Cuenta MN8</p>
-    <h1>Iniciar sesión</h1>
-    <p>Accedé a tu perfil y a las herramientas de publicación.</p>
-    <form method="post" class="formulario">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
-        <button type="submit" class="boton">Ingresar</button>
-    </form>
-    <p>¿Todavía no tenés una cuenta? <a href="{% url 'accounts:registro' %}">Registrate</a>.</p>
+<section class="acceso-pagina">
+    <div class="acceso-presentacion">
+        <p class="etiqueta">Cuenta MN8</p>
+        <h1>Volvé a tu espacio.</h1>
+        <p class="introduccion">Gestioná tu perfil y publicá ideas sobre datos, tecnología y productos digitales.</p>
+        <div class="acceso-destacado" aria-hidden="true">
+            <span>MN8</span>
+            <p>Ideas que se convierten en proyectos.</p>
+        </div>
+    </div>
+    <div class="panel-autenticacion">
+        <p class="etiqueta">Acceso privado</p>
+        <h2>Iniciar sesión</h2>
+        <p class="texto-secundario">Ingresá con los datos de tu cuenta.</p>
+        <form method="post" class="formulario formulario-acceso">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="errores-formulario" role="alert">{{ form.non_field_errors }}</div>
+            {% endif %}
+            {% for field in form %}
+                <div class="campo">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<p class="error">{{ error }}</p>{% endfor %}
+                </div>
+            {% endfor %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+            <button type="submit" class="boton boton-ancho">Ingresar a MN8</button>
+        </form>
+        <p class="alternativa-acceso">¿Todavía no tenés una cuenta? <a href="{% url 'accounts:registro' %}">Creala acá</a>.</p>
+    </div>
 </section>
 {% endblock %}
 
