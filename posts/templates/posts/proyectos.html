@@ -2,8 +2,19 @@
 {% block title %}Proyectos · Matías Noero{% endblock %}
 {% block content %}
 <section class="pagina-interna">
-    <p class="etiqueta">Portfolio MN8</p><h1>Proyectos con propósito</h1>
-    <p class="introduccion">Cada proyecto parte de una necesidad concreta y combina comprensión del negocio, estructura de datos y una experiencia simple para el usuario.</p>
-    <div class="grilla grilla-proyectos">{% for proyecto in proyectos %}<article class="tarjeta proyecto"><p class="meta">{{ proyecto.categoria }}</p><h2>{{ proyecto.nombre }}</h2><p>{{ proyecto.descripcion }}</p><small>{{ proyecto.tecnologias }}</small></article>{% endfor %}</div>
+    <div class="cabecera-portfolio"><div><p class="etiqueta">Portfolio MN8</p><h1>Proyectos con propósito.</h1></div><p class="introduccion">Cada caso parte de una necesidad concreta. El valor no está sólo en el código: está en comprender el problema, ordenar los datos y crear una experiencia que funcione.</p></div>
+    <div class="lista-casos">
+        {% for proyecto in proyectos %}
+        <article class="caso-proyecto">
+            <header class="caso-cabecera"><span>{{ proyecto.numero }}</span><div><p class="meta">{{ proyecto.categoria }}</p><h2>{{ proyecto.nombre }}</h2></div><p class="estado-proyecto">{{ proyecto.estado }}</p></header>
+            <p class="caso-descripcion">{{ proyecto.descripcion }}</p>
+            <div class="caso-detalle">
+                <div><h3>El desafío</h3><p>{{ proyecto.problema }}</p></div>
+                <div><h3>La respuesta</h3><p>{{ proyecto.resultado }}</p></div>
+            </div>
+            <footer class="caso-pie"><div class="chips">{% for tecnologia in proyecto.tecnologias %}<span>{{ tecnologia }}</span>{% endfor %}</div>{% if proyecto.url %}<a class="enlace-texto" href="{{ proyecto.url }}" target="_blank" rel="noopener noreferrer">{{ proyecto.url_texto }} ↗</a>{% endif %}</footer>
+        </article>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}

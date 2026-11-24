@@ -4,26 +4,34 @@
 
 {% block content %}
 <section class="hero hero-profesional">
-    <div>
+    <div class="hero-contenido">
+        <p class="disponibilidad"><span></span> Córdoba, Argentina · Proyectos remotos</p>
         <p class="etiqueta">Administración · Datos · Tecnología</p>
-        <h1>Convierto información y procesos en decisiones y productos.</h1>
-        <p class="introduccion">Soy Matías Noero. Combino experiencia en gestión, finanzas y operaciones con análisis de datos, Python y desarrollo web para resolver problemas reales.</p>
-        <div class="acciones"><a class="boton" href="{% url 'posts:proyectos' %}">Ver proyectos</a><a class="boton boton-secundario" href="{% url 'posts:lista_posts' %}">Leer artículos</a></div>
+        <h1>Convierto información y procesos en <em>decisiones y productos.</em></h1>
+        <p class="introduccion">Soy Matías Noero. Combino experiencia real en gestión, finanzas y operaciones con análisis de datos, Python y desarrollo web para construir soluciones claras, medibles y útiles.</p>
+        <div class="acciones"><a class="boton" href="{% url 'posts:proyectos' %}">Explorar proyectos <span aria-hidden="true">↗</span></a><a class="boton boton-secundario" href="{% url 'posts:acerca' %}">Conocer mi perfil</a></div>
+        <div class="tecnologias-hero" aria-label="Áreas y tecnologías"><span>Python</span><span>Django</span><span>SQL</span><span>Power BI</span><span>Gestión</span></div>
     </div>
-    <aside class="ficha-profesional"><p class="monograma">MN</p><p>Lic. en Administración</p><strong>Analista de datos y creador de productos digitales</strong><small>Córdoba, Argentina · Disponible para proyectos remotos</small></aside>
+    <aside class="ficha-profesional">
+        <div class="ficha-cabecera"><p class="monograma">MN8</p><span>Perfil profesional</span></div>
+        <p>Lic. en Administración</p>
+        <strong>Analista de datos y creador de productos digitales</strong>
+        <dl class="ficha-metricas"><div><dt>+10</dt><dd>años en gestión</dd></div><div><dt>3</dt><dd>productos activos</dd></div></dl>
+        <small>Negocio primero. Tecnología con propósito.</small>
+    </aside>
 </section>
 <section class="seccion">
-    <div class="titulo-seccion"><p class="etiqueta">Lo que hago</p><h2>Experiencia de negocio con capacidad técnica</h2></div>
+    <div class="titulo-seccion titulo-seccion-dividido"><div><p class="etiqueta">Cómo genero valor</p><h2>Experiencia de negocio con capacidad técnica</h2></div><p>No desarrollo tecnología por sí misma: parto de un problema, organizo la información y construyo una solución que ayude a decidir o trabajar mejor.</p></div>
     <div class="grilla">
-        <article class="tarjeta"><span>01</span><h3>Control de gestión</h3><p>Finanzas, contratos, procesos y tableros para transformar datos operativos en decisiones.</p></article>
-        <article class="tarjeta"><span>02</span><h3>Análisis de datos</h3><p>Excel, Power BI, SQL y Python aplicados a problemas concretos de organizaciones y personas.</p></article>
-        <article class="tarjeta"><span>03</span><h3>Productos digitales</h3><p>Aplicaciones centradas en el usuario, desde la idea y el modelo de datos hasta una experiencia funcional.</p></article>
+        <article class="tarjeta servicio"><span>01 / ESTRATEGIA</span><h3>Control de gestión</h3><p>Finanzas, contratos, operaciones y tableros para convertir actividad cotidiana en información accionable.</p></article>
+        <article class="tarjeta servicio"><span>02 / EVIDENCIA</span><h3>Análisis de datos</h3><p>Excel, Power BI, SQL y Python aplicados a preguntas concretas, con métricas comprensibles y trazables.</p></article>
+        <article class="tarjeta servicio"><span>03 / EJECUCIÓN</span><h3>Productos digitales</h3><p>Aplicaciones centradas en el usuario, desde la idea y el modelo de datos hasta una experiencia funcional.</p></article>
     </div>
 </section>
 <section class="seccion seccion-proyectos">
-    <div class="titulo-seccion"><p class="etiqueta">Proyectos seleccionados</p><h2>Construcciones que muestran el proceso</h2></div>
-    <div class="grilla">
-        {% for proyecto in proyectos %}<article class="tarjeta proyecto"><p class="meta">{{ proyecto.categoria }}</p><h3>{{ proyecto.nombre }}</h3><p>{{ proyecto.descripcion }}</p><small>{{ proyecto.tecnologias }}</small></article>{% endfor %}
+    <div class="titulo-seccion titulo-proyectos"><div><p class="etiqueta">Trabajo seleccionado</p><h2>Productos construidos desde problemas reales</h2></div><a class="enlace-texto" href="{% url 'posts:proyectos' %}">Ver todos los casos →</a></div>
+    <div class="grilla proyectos-inicio">
+        {% for proyecto in proyectos %}<article class="tarjeta proyecto proyecto-resumen"><div class="proyecto-numero">{{ proyecto.numero }}</div><p class="meta">{{ proyecto.categoria }}</p><h3>{{ proyecto.nombre }}</h3><p>{{ proyecto.descripcion }}</p><div class="chips">{% for tecnologia in proyecto.tecnologias %}<span>{{ tecnologia }}</span>{% endfor %}</div></article>{% endfor %}
     </div>
 </section>
 {% if destacados %}
@@ -34,4 +42,9 @@
     </div>
 </section>
 {% endif %}
+<section class="llamada-final">
+    <p class="etiqueta">MN8 · Pensar, medir, construir</p>
+    <h2>Las mejores soluciones empiezan por entender bien el problema.</h2>
+    <div class="acciones"><a class="boton" href="{% url 'posts:lista_posts' %}">Leer la bitácora</a><a class="enlace-texto" href="{% url 'posts:acerca' %}">Más sobre Matías →</a></div>
+</section>
 {% endblock %}
