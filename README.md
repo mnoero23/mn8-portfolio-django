@@ -29,7 +29,7 @@ MN8 combina conocimiento de negocio con capacidad técnica. El sitio presenta pr
 - Variables sensibles configurables desde `.env`.
 - Contenido editorial inicial reproducible mediante migración.
 - Diseño responsive, mensajes de éxito y estados seguros sin imagen.
-- Panel de administración y 38 pruebas automatizadas.
+- Panel de administración y 39 pruebas automatizadas.
 
 ## Instalación limpia en Windows
 
@@ -107,7 +107,7 @@ Resultado esperado:
 
 - `System check identified no issues`.
 - `No changes detected`.
-- `Ran 38 tests`.
+- `Ran 39 tests`.
 - `OK`.
 
 ## Rutas principales
@@ -118,7 +118,7 @@ Resultado esperado:
 | `/proyectos/` | Público | Casos FARO, ALQIVO y MN8 |
 | `/acerca/` | Público | Perfil profesional |
 | `/posts/` | Público | Artículos publicados |
-| `/posts/<id>/` | Público | Detalle del artículo |
+| `/posts/<id>/` | Público si está publicado | Detalle del artículo. El borrador es visible para su autor |
 | `/posts/crear/` | Autenticado | Crear artículo |
 | `/posts/<id>/editar/` | Propietario | Editar artículo |
 | `/posts/<id>/eliminar/` | Propietario | Eliminar con confirmación |

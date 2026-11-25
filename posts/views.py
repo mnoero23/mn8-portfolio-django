@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm
@@ -16,8 +17,6 @@ PROYECTOS = [
         "resultado": "Un flujo único para administrar unidades, liquidaciones, equipo operativo y experiencia del huésped.",
         "tecnologias": ["Next.js", "Supabase", "Datos", "UX"],
         "estado": "Producto en evolución",
-        "url": "https://github.com/mnoero23/alqivo",
-        "url_texto": "Ver repositorio",
     },
     {
         "nombre": "Faro Finanzas",
@@ -62,7 +61,10 @@ def lista_posts(request):
 
 def detalle_post(request, pk):
     """Muestra una publicación individual, incluida su imagen si existe."""
-    post = get_object_or_404(Post, pk=pk)
+    visibles = Q(estado=Post.PUBLICADO)
+    if request.user.is_authenticated:
+        visibles |= Q(autor=request.user)
+    post = get_object_or_404(Post.objects.filter(visibles), pk=pk)
     return render(request, "posts/detalle_post.html", {"post": post})
 
 

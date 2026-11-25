@@ -9,7 +9,7 @@ a { color:inherit; }
 .navegacion { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .marca { display:flex; align-items:center; gap:10px; color:var(--acento-oscuro); font-weight:800; text-decoration:none; }
 .marca span { display:grid; place-items:center; width:42px; aspect-ratio:1; border-radius:12px; color:#fff; background:var(--acento-oscuro); font-size:.78rem; letter-spacing:.04em; }
-.enlaces { display:flex; align-items:center; gap:6px; }
+.enlaces { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
 .enlaces a,.enlace-boton { padding:9px 13px; border-radius:999px; color:var(--secundario); font-weight:650; line-height:1.65; text-decoration:none; }
 .enlaces a:hover,.enlaces a:focus-visible,.enlace-boton:hover,.enlace-boton:focus-visible { color:var(--acento-oscuro); background:var(--acento-claro); }
 .contenido-principal { flex:1; }
@@ -122,7 +122,7 @@ h1 { max-width:900px; margin:0; font-size:clamp(2.65rem,6.7vw,5.25rem); letter-s
 .llamada-final .boton { color:var(--acento-oscuro); background:#fff; border-color:#fff; }
 .llamada-final .enlace-texto { margin:0; color:#fff; }
 @media (max-width:900px) { .hero-profesional,.grilla,.panel-acerca,.cabecera-portfolio{grid-template-columns:1fr}.ficha-profesional{max-width:560px}.publicacion{grid-template-columns:160px 1fr}.titulo-seccion-dividido{align-items:flex-start;flex-direction:column;gap:12px}.cabecera-portfolio{gap:20px}.caso-cabecera{grid-template-columns:55px 1fr}.estado-proyecto{grid-column:2} }
-@media (max-width:640px) { .contenedor{width:min(100% - 28px,1120px)}.navegacion{align-items:flex-start;flex-direction:column;padding-block:14px}.enlaces{width:100%;overflow-x:auto}.enlaces a,.enlace-boton{white-space:nowrap}.hero,.pagina-interna{padding-top:52px}.cabecera-pagina{align-items:flex-start;flex-direction:column}.publicacion{display:block}.miniatura-post{height:210px;margin-bottom:20px}.seccion-proyectos{padding-inline:20px}.pie-contenido,.titulo-proyectos,.caso-pie{align-items:flex-start;flex-direction:column}.caso-detalle{grid-template-columns:1fr}.caso-cabecera{display:block}.caso-cabecera>span{margin-bottom:20px}.estado-proyecto{display:inline-block}.proyecto-resumen{min-height:310px} }
+@media (max-width:640px) { .contenedor{width:min(100% - 28px,1120px)}.navegacion{align-items:flex-start;flex-direction:column;padding-block:14px}.encabezado{position:static}.enlaces{width:100%}.hero,.pagina-interna{padding-top:52px}.cabecera-pagina{align-items:flex-start;flex-direction:column}.publicacion{display:block}.miniatura-post{height:210px;margin-bottom:20px}.seccion-proyectos{padding-inline:20px}.pie-contenido,.titulo-proyectos,.caso-pie{align-items:flex-start;flex-direction:column}.caso-detalle{grid-template-columns:1fr}.caso-cabecera{display:block}.caso-cabecera>span{margin-bottom:20px}.estado-proyecto{display:inline-block}.proyecto-resumen{min-height:310px} }
 
 .form-salir { display:flex; margin:0; }
 .enlace-boton { border:0; background:transparent; font:inherit; cursor:pointer; }

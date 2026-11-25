@@ -3,7 +3,7 @@
 ## 1. Actualizar la rama de revisión
 
 ```powershell
-cd "$env:USERPROFILE\OneDrive\PERSONAL\01. CURSOS\02 - CODERHOUSE\2026 - Python\Modulo 6 - Git GitHub e introduccion a Django\07 - Preentrega 7"
+# Ejecutar desde la carpeta que contiene manage.py.
 git fetch origin
 git switch feature/entrega-final-mn8
 git pull origin feature/entrega-final-mn8
@@ -15,7 +15,7 @@ git pull origin feature/entrega-final-mn8
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-Copy-Item .env.example .env -ErrorAction SilentlyContinue
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 python manage.py migrate
 ```
 
@@ -37,11 +37,12 @@ Seguir el recorrido manual de `PRUEBAS.md` y revisar escritorio y celular.
 ```powershell
 git status
 git log --oneline -12
-git ls-files | Select-String "(^|/)(venv|db.sqlite3|media|\.env)$"
-git grep -n "C:\\Users\\"
+git ls-files | Select-String '(^|/)(venv[^/]*|db\.sqlite3|media|\.env)(/|$)'
+git grep -n -F 'C:\Users\'
+git diff --check origin/main...HEAD
 ```
 
-El árbol debe estar limpio y las dos búsquedas finales no deben encontrar archivos privados ni rutas absolutas.
+La rama debe estar limpia. Las búsquedas revisan archivos locales y rutas absolutas, y el último comando comprueba el formato del diff.
 
 ## 5. Fusionar y presentar
 

@@ -10,7 +10,7 @@ python manage.py test -v 2
 
 ## Cobertura automatizada
 
-La suite contiene **38 pruebas** y valida:
+La suite contiene **39 pruebas** y valida:
 
 - Configuración regional y aplicaciones instaladas.
 - Portada, navegación, portfolio y archivos estáticos.
@@ -30,7 +30,7 @@ La suite contiene **38 pruebas** y valida:
 
 - `System check identified no issues (0 silenced)`.
 - `No changes detected`.
-- `Ran 38 tests`.
+- `Ran 39 tests`.
 - `OK`.
 
 ## Prueba manual de aceptación

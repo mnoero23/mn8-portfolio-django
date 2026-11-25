@@ -179,6 +179,17 @@ class PostCrudTest(TestCase):
         self.assertContains(respuesta, self.post.titulo)
         self.assertContains(respuesta, self.post.nombre_autor)
 
+    def test_detalle_de_borrador_solo_visible_para_el_autor(self):
+        self.post.estado = Post.BORRADOR
+        self.post.save(update_fields=["estado"])
+        url = reverse("posts:detalle_post", args=[self.post.pk])
+
+        self.assertContains(self.client.get(url), self.post.titulo)
+        self.client.force_login(User.objects.create_user(username="lector"))
+        self.assertEqual(self.client.get(url).status_code, 404)
+        self.client.logout()
+        self.assertEqual(self.client.get(url).status_code, 404)
+
     def test_crear_post_con_imagen(self):
         png = base64.b64decode(
             "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
