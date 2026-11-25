@@ -7,7 +7,7 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     list_display = ("titulo", "autor", "estado", "tiene_imagen", "fecha_creacion")
     list_filter = ("estado", "fecha_creacion")
-    search_fields = ("titulo", "contenido", "autor")
+    search_fields = ("titulo", "contenido", "autor__username", "autor__email", "autor_legacy")
     ordering = ("-fecha_creacion",)
 
     @admin.display(boolean=True, description="Imagen")

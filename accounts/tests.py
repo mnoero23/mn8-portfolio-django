@@ -40,7 +40,7 @@ class AutenticacionYPerfilTest(TestCase):
         self.post = Post.objects.create(
             titulo="Artículo público",
             contenido="Contenido visible para visitantes.",
-            autor="Matías Noero",
+            autor=self.usuario,
             estado=Post.PUBLICADO,
         )
 
@@ -77,6 +77,13 @@ class AutenticacionYPerfilTest(TestCase):
             {"username": "matu", "password": "ClaveSegura123!"},
         )
         self.assertRedirects(respuesta, reverse("accounts:perfil"))
+
+    def test_login_presenta_campos_y_errores_con_la_interfaz_mn8(self):
+        respuesta = self.client.get(reverse("accounts:login"))
+        self.assertContains(respuesta, 'class="acceso-pagina"')
+        self.assertContains(respuesta, 'for="id_username"')
+        self.assertContains(respuesta, 'for="id_password"')
+        self.assertContains(respuesta, "Ingresar a MN8")
 
     def test_logout_por_post_redirige_al_listado(self):
         self.client.force_login(self.usuario)

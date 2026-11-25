@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ["titulo", "contenido", "autor", "estado", "imagen"]
+        fields = ["titulo", "contenido", "estado", "imagen"]
         widgets = {
             "titulo": forms.TextInput(
                 attrs={"placeholder": "Ej.: Cómo transformé una necesidad en una app"}
@@ -16,6 +16,4 @@ class PostForm(forms.ModelForm):
             "contenido": forms.Textarea(
                 attrs={"rows": 10, "placeholder": "Desarrollá la idea, el proceso y el aprendizaje..."}
             ),
-            "autor": forms.TextInput(attrs={"placeholder": "Matías Noero"}),
         }
-
